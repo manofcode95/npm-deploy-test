@@ -11,13 +11,13 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm run build  # Make sure this step creates your dist folder
-      - run: cp package.json dist/  # Copy package.json to dist folder
-      - run: npm publish dist  # Publish from the dist folder
+      - run: npm run build
+      - run: cp package.json dist/
+      - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
