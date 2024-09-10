@@ -1,5 +1,5 @@
 {
-  "name": "npm-deploy-test",
+  "name": "@manofcode95/npm-deploy-test",
   "version": "1.0.0",
   "files": [
     "dist"
