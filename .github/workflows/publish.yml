@@ -1,4 +1,3 @@
-
 name: Publish
 on:
   push:
@@ -12,16 +11,14 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: '20.x'
-      - run: npm install
-      - run: npm run build
-      - run: |
-          echo @manofcode95:https://npm.pkg.github.com/ > dist/.npmrc
-          echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> dist/.npmrc
-      - run: npm publish
-        working-directory: ./dist
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm run build  # Make sure this step creates your dist folder
+      - run: cp package.json dist/  # Copy package.json to dist folder
+      - run: npm publish dist  # Publish from the dist folder
         env:
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
