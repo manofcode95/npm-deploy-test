@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: '14'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
       - run: npm run build  # Make sure this step creates your dist folder
       - run: cp package.json dist/  # Copy package.json to dist folder
       - run: npm publish dist  # Publish from the dist folder
